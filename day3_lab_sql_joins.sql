@@ -6,7 +6,8 @@ from film f
 inner join film_category fc
 using(film_id)
 inner join category c
-using(category_id);
+using(category_id)
+group by c.name;
 
 /* challenge task 2*/
 select store_id, ci.city, co.country
@@ -24,7 +25,7 @@ inner join store on staff.store_id=store.store_id
 group by store.store_id;
 
 /* challenge task 4*/
-select avg(f.length) as average_runtime, c.name
+select round(avg(f.length), 2) as average_runtime, c.name
 from film f
 inner join film_category fc using(film_id)
 inner join category c using(category_id)
@@ -62,6 +63,5 @@ select distinct f.title,
 		else 'Available'
 		end as availability
 from film f
-inner join inventory i using(film_id)
-inner join rental r using(inventory_id)
-;
+left join inventory i using(film_id)
+left join rental r using(inventory_id);
