@@ -59,9 +59,8 @@ where s.store_id = 1 and f.title like 'Academy Dinosaur';
 /* bonus task 8*/
 select distinct f.title,
 	case
-		when isnull(r.return_date) then 'NOT available'
-		else 'Available'
-		end as availability
+		when isnull(i.film_id) then 'NOT available' else 'Available' end as availability
 from film f
 left join inventory i using(film_id)
-left join rental r using(inventory_id);
+group by f.title, availability
+order by f.title;
